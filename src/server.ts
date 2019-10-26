@@ -7,6 +7,7 @@ import ShopDiscount from "./model/ShopDiscount";
 import ShopDiscountService from "./model/ShopDiscountService";
 import ShopRouter from "./router/shop";
 import BaseRouter from "./base/base-router";
+
 const app = express();
 app.use(bodyParser.json());
 const port = 5000;

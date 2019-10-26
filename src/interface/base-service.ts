@@ -4,10 +4,7 @@ export type GenericStaticType<E extends Model> = typeof Model & {
   new (values?: object, options?: BuildOptions): E;
 };
 
-export interface IGenericRepository<
-  E extends Model,
-  M extends GenericStaticType<E>
-> {
+export interface IBaseService<E extends Model, M extends GenericStaticType<E>> {
   model: M;
   getAll(): Promise<Array<E>>;
   getOne(id: number): Promise<E | null>;

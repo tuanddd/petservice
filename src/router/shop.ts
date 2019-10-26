@@ -1,12 +1,10 @@
 import Shop from "../model/Shop";
 import * as express from "express";
-import ShopRepository from "../repository/shop";
-import IGenericRouter from "../interface/generic-router";
+import ShopService from "../service/shop";
 import BaseRouter from "../base/base-router";
 
-export default class ShopRouter extends BaseRouter<Shop, typeof Shop>
-  implements IGenericRouter<Shop, typeof Shop> {
-  readonly repository = new ShopRepository();
+export default class ShopRouter extends BaseRouter<Shop, typeof Shop> {
+  readonly service = new ShopService();
   constructor() {
     super(Shop);
 
@@ -15,7 +13,7 @@ export default class ShopRouter extends BaseRouter<Shop, typeof Shop>
       async (req: express.Request, res: express.Response) => {
         res
           .status(200)
-          .json(await this.repository.getShopsHaveDiscountedServices());
+          .json(await this.service.getShopsHaveDiscountedServices());
       }
     );
   }

@@ -1,10 +1,8 @@
 import Shop from "../model/Shop";
-import { IGenericRepository } from "../interface/generic-repository";
-import BaseRepository from "../base/base-repository";
+import BaseService from "../base/base-service";
 import ShopDiscountService from "../model/ShopDiscountService";
 
-export default class ShopRepository extends BaseRepository<Shop, typeof Shop>
-  implements IGenericRepository<Shop, typeof Shop> {
+export default class ShopService extends BaseService<Shop, typeof Shop> {
   model: typeof Shop;
 
   constructor() {

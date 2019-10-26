@@ -1,10 +1,10 @@
 import { Model } from "sequelize";
-import { GenericStaticType } from "./interface/generic-repository";
+import { GenericStaticType, IBaseService } from "../interface/base-service";
 
-export default class GenericRepository<
+export default class BaseService<
   E extends Model,
   M extends GenericStaticType<E>
-> {
+> implements IBaseService<E, M> {
   constructor(public model: M) {}
 
   async getAll(): Promise<Array<E>> {
