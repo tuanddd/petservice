@@ -1,6 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connection";
 
+export const enum SHOP_STATUS_ENUM {
+  INACTIVE = 1,
+  ACTIVE
+}
+
 export default class Shop extends Model {}
 Shop.init(
   {
@@ -12,8 +17,8 @@ Shop.init(
     latitude: DataTypes.STRING,
     longtitude: DataTypes.STRING,
     status: {
-      type: DataTypes.ENUM("Inactive", "Active"),
-      defaultValue: "Inactive",
+      type: DataTypes.INTEGER,
+      defaultValue: SHOP_STATUS_ENUM.INACTIVE,
       allowNull: false
     }
   },

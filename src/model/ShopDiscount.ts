@@ -1,6 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../connection";
 
+export const enum SHOP_DISCOUNT_ENUM {
+  UNUSED = 1,
+  USED
+}
+
 export default class ShopDiscount extends Model {}
 ShopDiscount.init(
   {
@@ -13,8 +18,8 @@ ShopDiscount.init(
       unique: true
     },
     status: {
-      type: DataTypes.ENUM("Unused", "Used"),
-      defaultValue: "Unused",
+      type: DataTypes.INTEGER,
+      defaultValue: SHOP_DISCOUNT_ENUM.UNUSED,
       allowNull: false
     }
   },

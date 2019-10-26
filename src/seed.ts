@@ -90,17 +90,17 @@ export const init: () => Promise<boolean> = () => {
         await Shop.bulkCreate([
           {
             name: "Shop SH1",
-            status: "Active",
+            status: 2,
             userId: 2
           },
           {
             name: "Shop SH2",
-            status: "Active",
+            status: 2,
             userId: 2
           },
           {
             name: "Shop SH3",
-            status: "Inactive",
+            status: 1,
             userId: 3
           }
         ]);
@@ -136,7 +136,7 @@ export const init: () => Promise<boolean> = () => {
             validFrom: new Date(),
             validUntil: addDays(new Date(), 5),
             code: "DISCOUNT#1",
-            status: "Unused",
+            status: 1,
             userId: 2,
             shopId: 1
           },
@@ -146,7 +146,7 @@ export const init: () => Promise<boolean> = () => {
             validFrom: new Date(),
             validUntil: addDays(new Date(), 5),
             code: "DISCOUNT#2",
-            status: "Used",
+            status: 2,
             userId: 2,
             shopId: 1
           },
@@ -156,7 +156,7 @@ export const init: () => Promise<boolean> = () => {
             validFrom: new Date(),
             validUntil: addDays(new Date(), 5),
             code: "DISCOUNT#3",
-            status: "Used",
+            status: 2,
             userId: 2,
             shopId: 1
           }
