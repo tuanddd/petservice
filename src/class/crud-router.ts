@@ -1,16 +1,16 @@
-import * as express from "express";
 import { Model, ValidationError } from "sequelize/types";
-import BaseService from "./base-service";
-import { GenericStaticType } from "../interface/base-service";
-import IBaseRouter from "../interface/base-router";
+import { GenericStaticType } from "../interface/\bbase-service";
+import { ICrudRouter } from "../interface/crud-router";
+import * as express from "express";
+import { ICrudService } from "../interface/crud-service";
+import CrudService from "./crud-service";
 
-export default class BaseRouter<E extends Model, M extends GenericStaticType<E>>
-  implements IBaseRouter<E, M> {
+export default class CrudRouter<E extends Model, M extends GenericStaticType<E>>
+  implements ICrudRouter<E, M> {
   readonly router = express.Router();
-  service: BaseService<E, M>;
-
+  service: ICrudService<E, M>;
   constructor(type: M) {
-    this.service = new BaseService(type);
+    this.service = new CrudService(type);
     this.router.get(
       ``,
       async (_req: express.Request, res: express.Response) => {
@@ -24,7 +24,7 @@ export default class BaseRouter<E extends Model, M extends GenericStaticType<E>>
     );
 
     this.router.get(
-      `:id`,
+      `/:id`,
       async (req: express.Request, res: express.Response) => {
         try {
           let result = await this.service.getOne((req.params
@@ -49,7 +49,7 @@ export default class BaseRouter<E extends Model, M extends GenericStaticType<E>>
     );
 
     this.router.put(
-      `:id`,
+      `/:id`,
       async (req: express.Request, res: express.Response) => {
         try {
           let result = await this.service.edit({
@@ -62,7 +62,7 @@ export default class BaseRouter<E extends Model, M extends GenericStaticType<E>>
     );
 
     this.router.delete(
-      `:id`,
+      `/:id`,
       async (req: express.Request, res: express.Response) => {
         try {
           let numRowAffected = await this.service.remove((req.params

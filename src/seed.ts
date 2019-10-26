@@ -6,6 +6,9 @@ import Shop from "./model/Shop";
 import ShopDiscount from "./model/ShopDiscount";
 import { addDays } from "date-fns";
 import ShopDiscountService from "./model/ShopDiscountService";
+import { hashSync } from "bcrypt";
+
+const salt = 10;
 
 export const init: () => Promise<boolean> = () => {
   return sequelize
@@ -61,7 +64,7 @@ export const init: () => Promise<boolean> = () => {
           User.bulkCreate([
             {
               email: "tuand@gmail.com",
-              password: "123456",
+              password: hashSync("123456", salt),
               name: "Tuan",
               roleId: role.get("id")
             }
@@ -74,13 +77,13 @@ export const init: () => Promise<boolean> = () => {
           User.bulkCreate([
             {
               email: "vutnq@gmail.com",
-              password: "123456",
+              password: hashSync("123456", salt),
               name: "Vu",
               roleId: role.get("id")
             },
             {
               email: "khuetla@gmail.com",
-              password: "123456",
+              password: hashSync("123456", salt),
               name: "Khue",
               roleId: role.get("id")
             }

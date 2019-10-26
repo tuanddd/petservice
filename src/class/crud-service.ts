@@ -1,12 +1,12 @@
-import { Model } from "sequelize";
-import { GenericStaticType, IBaseService } from "../interface/base-service";
+import { Model } from "sequelize/types";
+import { GenericStaticType } from "../interface/\bbase-service";
+import { ICrudService } from "../interface/crud-service";
+import BaseService from "./base-service";
 
-export default class BaseService<
+export default class CrudService<
   E extends Model,
   M extends GenericStaticType<E>
-> implements IBaseService<E, M> {
-  constructor(public model: M) {}
-
+> extends BaseService<E, M> implements ICrudService<E, M> {
   async getAll(): Promise<Array<E>> {
     return await this.model.findAll({
       include: Object.values(this.model.associations)

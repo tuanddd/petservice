@@ -1,8 +1,8 @@
 import Shop from "../model/Shop";
-import BaseService from "../base/base-service";
 import ShopDiscountService from "../model/ShopDiscountService";
+import CrudService from "../class/crud-service";
 
-export default class ShopService extends BaseService<Shop, typeof Shop> {
+export default class ShopService extends CrudService<Shop, typeof Shop> {
   model: typeof Shop;
 
   constructor() {

@@ -1,9 +1,9 @@
 import Shop from "../model/Shop";
 import * as express from "express";
 import ShopService from "../service/shop";
-import BaseRouter from "../base/base-router";
+import CrudRouter from "../class/crud-router";
 
-export default class ShopRouter extends BaseRouter<Shop, typeof Shop> {
+export default class ShopRouter extends CrudRouter<Shop, typeof Shop> {
   readonly service = new ShopService();
   constructor() {
     super(Shop);
