@@ -1,6 +1,5 @@
 import * as express from "express";
-import { Model, ValidationError } from "sequelize/types";
-import BaseService from "./base-service";
+import { Model } from "sequelize/types";
 import { GenericStaticType, IBaseService } from "../interface/base-service";
 import { IBaseRouter } from "../interface/base-router";
 

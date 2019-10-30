@@ -1,4 +1,3 @@
-import { Model } from "sequelize/types";
 import BaseService from "../class/base-service";
 import User from "../model/User";
 import { compare } from "bcrypt";
@@ -23,5 +22,10 @@ export default class LoginService extends BaseService<User, typeof User> {
     }
 
     return Promise.resolve(false);
+  }
+
+  async getMe(id: number): Promise<User> {
+    let user = await this.model.findByPk(id, { include: [Role] });
+    return Promise.resolve(user);
   }
 }

@@ -1,4 +1,6 @@
 import { init } from "./seed";
+import { config } from "dotenv";
+config();
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import User from "./model/User";
@@ -6,12 +8,13 @@ import ShopService from "./model/ShopService";
 import ShopDiscount from "./model/ShopDiscount";
 import ShopDiscountService from "./model/ShopDiscountService";
 import ShopRouter from "./router/shop";
-import BaseRouter from "./class/base-router";
 import CrudRouter from "./class/crud-router";
 import LoginRouter from "./router/login";
+import * as cors from "cors";
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 const port = 5000;
 init();
 
@@ -28,7 +31,7 @@ app.use(
   new CrudRouter(ShopDiscountService).router
 );
 
-app.use(`/api/login`, new LoginRouter().router);
+app.use(`/api/authentication/`, new LoginRouter().router);
 
 app.listen(port, () => {
   console.log(`Server live at ${port}`);
