@@ -11,17 +11,15 @@ export default class CrudRouter<E extends Model, M extends GenericStaticType<E>>
   service: ICrudService<E, M>;
   constructor(type: M) {
     this.service = new CrudService(type);
-    this.router.get(
-      ``,
-      async (_req: express.Request, res: express.Response) => {
-        try {
-          let result = await this.service.getAll();
-          res.status(200).json(result);
-        } catch (error) {
-          res.status(400).json((error as ValidationError).message);
-        }
+    this.router.get(``, async (req: express.Request, res: express.Response) => {
+      try {
+        let params = req.query;
+        let result = await this.service.getAll(params);
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(400).json((error as ValidationError).message);
       }
-    );
+    });
 
     this.router.get(
       `/:id`,

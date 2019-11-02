@@ -9,11 +9,25 @@ export default class ShopRouter extends CrudRouter<Shop, typeof Shop> {
     super(Shop);
 
     this.router.get(
-      `/get-shops-have-discounted-services`,
+      `/custom/get-shops-have-discounted-services`,
       async (req: express.Request, res: express.Response) => {
         res
           .status(200)
           .json(await this.service.getShopsHaveDiscountedServices());
+      }
+    );
+
+    this.router.get(
+      `/custom/search-shops-by-name`,
+      async (
+        req: express.Request & { userId: number },
+        res: express.Response
+      ) => {
+        res
+          .status(200)
+          .json(
+            await this.service.getShopLikeName(req.query.name || "", req.userId)
+          );
       }
     );
   }

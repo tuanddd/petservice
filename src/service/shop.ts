@@ -1,6 +1,7 @@
 import Shop from "../model/Shop";
 import ShopDiscountService from "../model/ShopDiscountService";
 import CrudService from "../class/crud-service";
+import { Op } from "sequelize";
 
 export default class ShopService extends CrudService<Shop, typeof Shop> {
   model: typeof Shop;
@@ -17,6 +18,18 @@ export default class ShopService extends CrudService<Shop, typeof Shop> {
           required: true
         }
       ]
+    });
+  }
+
+  async getShopLikeName(name: string, userId: number): Promise<Array<Shop>> {
+    return await this.model.findAll({
+      include: Object.values(this.model.associations),
+      where: {
+        userId,
+        name: {
+          [Op.like]: `%${name}%`
+        }
+      }
     });
   }
 }

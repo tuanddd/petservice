@@ -32,26 +32,15 @@ export default class LoginRouter extends BaseRouter<User, typeof User> {
 
     this.router.get(
       `/me`,
-      async (req: express.Request, res: express.Response) => {
-        let regex = /(Bearer|bearer) (.+)/;
-        let token = req.headers.authorization.match(regex)[2];
-        if (token) {
-          try {
-            let id = (verify(
-              token,
-              process.env.JWT_SECRET
-            ) as unknown) as number;
-            let user = await this.service.getMe(id);
-            if (user) {
-              res.status(200).json({ user, token });
-            } else {
-              res.status(400).end("User not found.");
-            }
-          } catch (error) {
-            res.status(400).json(error);
-          }
+      async (
+        req: express.Request & { userId: number; token: string },
+        res: express.Response
+      ) => {
+        let user = await this.service.getMe(req.userId);
+        if (user) {
+          res.status(200).json({ user, token: req.token });
         } else {
-          res.status(401).end("Unauthorized.");
+          res.status(400).end("User not found.");
         }
       }
     );

@@ -34,12 +34,22 @@ export const init: () => Promise<boolean> = () => {
           allowNull: false
         }
       });
+      ShopService.belongsTo(Shop, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
       User.hasMany(ShopDiscount, {
         foreignKey: {
           allowNull: false
         }
       });
       ShopDiscount.belongsTo(User);
+      ShopDiscount.belongsTo(Shop, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
 
       Shop.hasMany(ShopDiscount);
       Shop.hasMany(ShopService);
