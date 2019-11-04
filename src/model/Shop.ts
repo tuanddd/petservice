@@ -13,6 +13,11 @@ Shop.init(
       type: DataTypes.STRING,
       allowNull: false
     },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: process.env.DEFAULT_SHOP_ICON
+    },
     description: DataTypes.STRING,
     latitude: DataTypes.STRING,
     longtitude: DataTypes.STRING,

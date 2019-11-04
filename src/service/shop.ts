@@ -3,7 +3,7 @@ import ShopDiscountService from "../model/ShopDiscountService";
 import CrudService from "../class/crud-service";
 import { Op } from "sequelize";
 
-export default class ShopService extends CrudService<Shop, typeof Shop> {
+export default class ShopServiceService extends CrudService<Shop, typeof Shop> {
   model: typeof Shop;
 
   constructor() {

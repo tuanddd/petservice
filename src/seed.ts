@@ -24,6 +24,7 @@ export const init: () => Promise<boolean> = () => {
         }
       });
       User.hasMany(Shop);
+      Shop.belongsTo(User);
       User.hasMany(ShopService, {
         foreignKey: {
           allowNull: false
@@ -55,6 +56,9 @@ export const init: () => Promise<boolean> = () => {
       Shop.hasMany(ShopService);
       Shop.hasMany(ShopDiscountService);
       ShopDiscountService.belongsTo(Shop);
+
+      ShopDiscountService.belongsTo(ShopDiscount);
+      ShopDiscountService.belongsTo(ShopService);
 
       ShopDiscount.belongsToMany(ShopService, {
         through: ShopDiscountService
@@ -174,6 +178,12 @@ export const init: () => Promise<boolean> = () => {
             shopId: 1
           }
         ]);
+
+        await ShopDiscountService.create({
+          shopId: 1,
+          shopDiscountId: 1,
+          shopServiceId: 1
+        });
 
         return true;
       });

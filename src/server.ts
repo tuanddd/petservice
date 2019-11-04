@@ -1,6 +1,6 @@
-import { init } from "./seed";
 import { config } from "dotenv";
 config();
+import { init } from "./seed";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import User from "./model/User";
@@ -13,6 +13,7 @@ import LoginRouter from "./router/login";
 import * as cors from "cors";
 import { verify } from "jsonwebtoken";
 import * as unless from "express-unless";
+import ShopDiscountServiceRouter from "./router/shop-discount-services";
 
 const app = express();
 app.use(bodyParser.json());
@@ -39,7 +40,7 @@ const routers: Array<{ name: string; router: express.Router }> = [
   },
   {
     name: "shop-discount-services",
-    router: new CrudRouter(ShopDiscountService).router
+    router: new ShopDiscountServiceRouter().router
   },
   {
     name: "authentication",
@@ -53,18 +54,22 @@ const jwtMiddle: ((
   next: express.NextFunction
 ) => void) & { unless?: any } = (req, res, next) => {
   let regex = /(Bearer|bearer) (.+)/;
-  let token = req.headers.authorization.match(regex)[2];
-  if (token) {
-    try {
-      let id = (verify(token, process.env.JWT_SECRET) as unknown) as number;
-      req.userId = id;
-      req.token = token;
-      next();
-    } catch (error) {
-      res.status(400).json(error);
-    }
-  } else {
+  if (!req.headers.authorization) {
     res.status(401).end("Unauthorized.");
+  } else {
+    let token = req.headers.authorization.match(regex)[2];
+    if (token) {
+      try {
+        let id = (verify(token, process.env.JWT_SECRET) as unknown) as number;
+        req.userId = id;
+        req.token = token;
+        next();
+      } catch (error) {
+        res.status(400).json(error);
+      }
+    } else {
+      res.status(401).end("Unauthorized.");
+    }
   }
 };
 
