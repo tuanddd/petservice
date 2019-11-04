@@ -148,11 +148,12 @@ export const init: () => Promise<boolean> = () => {
 
         ShopDiscount.bulkCreate([
           {
-            value: "1000",
+            value: "50",
             unit: "VND",
             validFrom: new Date(),
             validUntil: addDays(new Date(), 5),
             code: "DISCOUNT#1",
+            type: 1,
             status: 1,
             userId: 2,
             shopId: 1
@@ -163,6 +164,7 @@ export const init: () => Promise<boolean> = () => {
             validFrom: new Date(),
             validUntil: addDays(new Date(), 5),
             code: "DISCOUNT#2",
+            type: 2,
             status: 2,
             userId: 2,
             shopId: 1
@@ -173,6 +175,7 @@ export const init: () => Promise<boolean> = () => {
             validFrom: new Date(),
             validUntil: addDays(new Date(), 5),
             code: "DISCOUNT#3",
+            type: 2,
             status: 2,
             userId: 2,
             shopId: 1
