@@ -38,8 +38,14 @@ export default class CrudRouter<E extends Model, M extends GenericStaticType<E>>
       ``,
       async (req: express.Request, res: express.Response) => {
         try {
-          let result: E = await this.service.create(req.body as E);
-          res.status(201).json(result);
+          let bulk = req.query.bulk;
+          if (bulk) {
+            let result = await this.service.createBulk(req.body as Array<E>);
+            res.status(201).json(result);
+          } else {
+            let result: E = await this.service.create(req.body as E);
+            res.status(201).json(result);
+          }
         } catch (error) {
           res.status(400).json((error as ValidationError).message);
         }
@@ -56,6 +62,18 @@ export default class CrudRouter<E extends Model, M extends GenericStaticType<E>>
           });
           res.status(200).json(result);
         } catch (error) {}
+      }
+    );
+
+    this.router.delete(
+      ``,
+      async (req: express.Request, res: express.Response) => {
+        try {
+          let numRowAffected = await this.service.removeByParams(req.query);
+          res.status(200).json(numRowAffected);
+        } catch (error) {
+          res.status(400).json((error as ValidationError).message);
+        }
       }
     );
 

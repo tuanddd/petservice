@@ -17,6 +17,10 @@ import * as unless from "express-unless";
 import ShopDiscountServiceRouter from "./router/shop-discount-services";
 import Breed from "./model/Breed";
 import BreedRouter from "./router/breed";
+import Virus from "./model/Virus";
+import VirusRouter from "./router/virus";
+import VaccineRouter from "./router/vaccine";
+import VaccineVirus from "./model/VaccineVirus";
 
 const app = express();
 app.use(bodyParser.json());
@@ -35,6 +39,14 @@ const routers: Array<{ name: string; router: express.Router }> = [
     router: new BreedRouter().router
   },
   {
+    name: "viruses",
+    router: new VirusRouter().router
+  },
+  {
+    name: "vaccines",
+    router: new VaccineRouter().router
+  },
+  {
     name: "services",
     router: new CrudRouter(ShopService).router
   },
@@ -49,6 +61,10 @@ const routers: Array<{ name: string; router: express.Router }> = [
   {
     name: "shop-discount-services",
     router: new ShopDiscountServiceRouter().router
+  },
+  {
+    name: "vaccine-virus",
+    router: new CrudRouter(VaccineVirus).router
   },
   {
     name: "authentication",
@@ -85,13 +101,17 @@ jwtMiddle.unless = unless;
 
 app.use(
   jwtMiddle.unless({
-    path: ["/api/authentication/login"]
+    path: ["/api/authentication/login", "/api/vaccines/custom/export-json"]
   })
 );
 
 app.use("/api/users/", routers.find(r => r.name === "users").router);
 
 app.use("/api/breeds", routers.find(r => r.name === "breeds").router);
+
+app.use("/api/viruses", routers.find(r => r.name === "viruses").router);
+
+app.use("/api/vaccines", routers.find(r => r.name === "vaccines").router);
 
 app.use("/api/services/", routers.find(r => r.name === "services").router);
 
@@ -102,6 +122,11 @@ app.use("/api/shops", routers.find(r => r.name === "shops").router);
 app.use(
   "/api/shop-discount-services/",
   routers.find(r => r.name === "shop-discount-services").router
+);
+
+app.use(
+  "/api/vaccine-virus/",
+  routers.find(r => r.name === "vaccine-virus").router
 );
 
 app.use(

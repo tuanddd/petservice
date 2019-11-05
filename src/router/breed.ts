@@ -12,10 +12,12 @@ export default class BreedRouter extends CrudRouter<Breed, typeof Breed> {
     this.router.post(
       `/custom/import-csv`,
       async (
-        req: Request & { files: { csv: UploadedFile } },
+        req: Request & { files: { csv: { data: Buffer } } },
         res: Response
       ) => {
-        res.status(200).json(await this.service.importCSV(req.files.csv));
+        res
+          .status(200)
+          .end((await this.service.import(req.files.csv.data)).toString());
       }
     );
   }

@@ -10,6 +10,9 @@ import { hashSync } from "bcrypt";
 import VaccineVirus from "./model/VaccineVirus";
 import Virus from "./model/Virus";
 import Vaccine from "./model/Vaccine";
+import * as csv from "neat-csv";
+import { resolve } from "path";
+import { readFileSync } from "fs";
 
 const salt = 10;
 
@@ -72,6 +75,8 @@ export const init: () => Promise<boolean> = () => {
 
       VaccineVirus.belongsTo(Virus);
       VaccineVirus.belongsTo(Vaccine);
+
+      Vaccine.hasMany(VaccineVirus);
 
       Virus.belongsToMany(Vaccine, {
         through: VaccineVirus

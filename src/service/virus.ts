@@ -1,16 +1,15 @@
 import CrudService from "../class/crud-service";
-import Breed from "../model/Breed";
-import { UploadedFile } from "express-fileupload";
-import * as csv from "neat-csv";
+import Virus from "../model/Virus";
 import { IImportCSV } from "../interface/import-csv";
+import * as csv from "neat-csv";
 
-export default class BreedService extends CrudService<Breed, typeof Breed>
-  implements IImportCSV<Breed> {
+export default class VirusService extends CrudService<Virus, typeof Virus>
+  implements IImportCSV<Virus> {
   constructor() {
-    super(Breed);
+    super(Virus);
   }
 
-  async import(data: Buffer): Promise<boolean> {
+  async import(data: string | Buffer): Promise<boolean> {
     try {
       let result = await csv(data);
       this.model.bulkCreate(result);

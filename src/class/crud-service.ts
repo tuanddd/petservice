@@ -21,16 +21,22 @@ export default class CrudService<
     });
   }
 
-  async create(user: E): Promise<E> {
-    return await this.model.create(user, {
+  async create(model: E): Promise<E> {
+    return await this.model.create(model, {
       include: Object.values(this.model.associations)
     });
   }
 
-  async edit(user: { id: number }): Promise<E> {
-    let entity: E = (await this.getOne(user.id)) as E;
+  async createBulk(models: Array<E>): Promise<Array<E>> {
+    return await this.model.bulkCreate(models, {
+      include: Object.values(this.model.associations)
+    });
+  }
+
+  async edit(model: { id: number }): Promise<E> {
+    let entity: E = (await this.getOne(model.id)) as E;
     if (entity) {
-      Object.entries(user).forEach(entry => {
+      Object.entries(model).forEach(entry => {
         let key = entry[0];
         let value = entry[1];
         if (key === "id") return;
@@ -51,5 +57,9 @@ export default class CrudService<
 
   async remove(id: number): Promise<number> {
     return await this.model.destroy({ where: { id } });
+  }
+
+  async removeByParams(params: WhereOptions): Promise<number> {
+    return await this.model.destroy({ where: params });
   }
 }
