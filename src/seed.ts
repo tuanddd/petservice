@@ -7,6 +7,9 @@ import ShopDiscount from "./model/ShopDiscount";
 import { addDays } from "date-fns";
 import ShopDiscountService from "./model/ShopDiscountService";
 import { hashSync } from "bcrypt";
+import VaccineVirus from "./model/VaccineVirus";
+import Virus from "./model/Virus";
+import Vaccine from "./model/Vaccine";
 
 const salt = 10;
 
@@ -66,6 +69,15 @@ export const init: () => Promise<boolean> = () => {
       ShopService.belongsToMany(ShopDiscount, {
         through: ShopDiscountService
       });
+
+      VaccineVirus.belongsTo(Virus);
+      VaccineVirus.belongsTo(Vaccine);
+
+      Virus.belongsToMany(Vaccine, {
+        through: VaccineVirus
+      });
+
+      Vaccine.belongsToMany(Virus, { through: VaccineVirus });
 
       console.log("=".repeat(100));
       console.log("Setting associations OK");

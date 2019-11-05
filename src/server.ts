@@ -1,6 +1,7 @@
 import { config } from "dotenv";
 config();
 import { init } from "./seed";
+import * as fileUpload from "express-fileupload";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import User from "./model/User";
@@ -14,10 +15,13 @@ import * as cors from "cors";
 import { verify } from "jsonwebtoken";
 import * as unless from "express-unless";
 import ShopDiscountServiceRouter from "./router/shop-discount-services";
+import Breed from "./model/Breed";
+import BreedRouter from "./router/breed";
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+app.use(fileUpload());
 const port = 5000;
 init();
 
@@ -25,6 +29,10 @@ const routers: Array<{ name: string; router: express.Router }> = [
   {
     name: "users",
     router: new CrudRouter(User).router
+  },
+  {
+    name: "breeds",
+    router: new BreedRouter().router
   },
   {
     name: "services",
@@ -82,6 +90,8 @@ app.use(
 );
 
 app.use("/api/users/", routers.find(r => r.name === "users").router);
+
+app.use("/api/breeds", routers.find(r => r.name === "breeds").router);
 
 app.use("/api/services/", routers.find(r => r.name === "services").router);
 
