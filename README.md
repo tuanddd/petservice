@@ -4,10 +4,10 @@
 Back-end (TypeScript) in root folder.
 
 ## Front-end
-Front-end (React) code inside `/front-end` directory.
+Front-end (React) code inside `/petservice-fe` directory.
 
 ## Development
-1. Go into `/front-end`
+1. Go into `/petservice-fe`
 2. `npm start`
 3. Back out to root
 4. `npm run dev`
@@ -16,8 +16,7 @@ Front-end (React) code inside `/front-end` directory.
 ## Production
 1. Run `npm run build` in root
 2. `npm run compile`
-3. `npm run start`
-4. Access `http://localhost:5000`
+3. Access `http://localhost:5000`
 
 ## Testing
 TODO
