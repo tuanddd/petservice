@@ -8,5 +8,6 @@
     "noImplicitReturns": true,
     "allowJs": true,
     "alwaysStrict": true
-  }
+  },
+  "exclude": ["front-end/**"]
 }

@@ -21,11 +21,13 @@ import Virus from "./model/Virus";
 import VirusRouter from "./router/virus";
 import VaccineRouter from "./router/vaccine";
 import VaccineVirus from "./model/VaccineVirus";
+import { resolve } from "path";
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(fileUpload());
+app.use(express.static(resolve(__dirname, "./public")));
 const port = 5000;
 init();
 
@@ -77,22 +79,27 @@ const jwtMiddle: ((
   res: express.Response,
   next: express.NextFunction
 ) => void) & { unless?: any } = (req, res, next) => {
-  let regex = /(Bearer|bearer) (.+)/;
-  if (!req.headers.authorization) {
-    res.status(401).end("Unauthorized.");
+  let APIcall = /\/api\/[\w\/\-\d]*/g;
+  if (!req.path.match(APIcall)) {
+    next();
   } else {
-    let token = req.headers.authorization.match(regex)[2];
-    if (token) {
-      try {
-        let id = (verify(token, process.env.JWT_SECRET) as unknown) as number;
-        req.userId = id;
-        req.token = token;
-        next();
-      } catch (error) {
-        res.status(400).json(error);
-      }
-    } else {
+    let regex = /(Bearer|bearer) (.+)/;
+    if (!req.headers.authorization) {
       res.status(401).end("Unauthorized.");
+    } else {
+      let token = req.headers.authorization.match(regex)[2];
+      if (token) {
+        try {
+          let id = (verify(token, process.env.JWT_SECRET) as unknown) as number;
+          req.userId = id;
+          req.token = token;
+          next();
+        } catch (error) {
+          res.status(400).json(error);
+        }
+      } else {
+        res.status(401).end("Unauthorized.");
+      }
     }
   }
 };
@@ -132,6 +139,10 @@ app.use(
 app.use(
   `/api/authentication/`,
   routers.find(r => r.name === "authentication").router
+);
+
+app.use("/", (_req, res) =>
+  res.sendFile(resolve(__dirname, "./public/index.html"))
 );
 
 app.listen(port, () => {
