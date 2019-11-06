@@ -7,7 +7,7 @@
     "dev": "nodemon --watch src -e js,ts --exec \"npm run compile\"",
     "compile": "rm -rf build/* && tsc && cp -a src/public build/ && npm run start",
     "start": "node build/server.js",
-    "build": "rm -rf src/public/* && cd front-end && npm run build && cp -a dist/. ../src/public"
+    "build": "rm -rf src/public/* && cd petservice-fe && npm run build && cp -a dist/. ../src/public"
   },
   "keywords": [],
   "author": "Dao Tuan <heryhudson@gmail.com>",
