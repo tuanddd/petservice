@@ -1,0 +1,3 @@
+[submodule "petservice-fe"]
+	path = petservice-fe
+	url = https://github.com/TuanDSE62171/petservice-fe.git
