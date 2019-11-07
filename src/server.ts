@@ -22,6 +22,7 @@ import VirusRouter from "./router/virus";
 import VaccineRouter from "./router/vaccine";
 import VaccineVirus from "./model/VaccineVirus";
 import { resolve } from "path";
+import MedicineRouter from "./router/medicine";
 
 const app = express();
 app.use(bodyParser.json());
@@ -39,6 +40,10 @@ const routers: Array<{ name: string; router: express.Router }> = [
   {
     name: "breeds",
     router: new BreedRouter().router
+  },
+  {
+    name: "medicines",
+    router: new MedicineRouter().router
   },
   {
     name: "viruses",
@@ -118,6 +123,8 @@ app.use(
 app.use("/api/users/", routers.find(r => r.name === "users").router);
 
 app.use("/api/breeds", routers.find(r => r.name === "breeds").router);
+
+app.use("/api/medicines", routers.find(r => r.name === "medicines").router);
 
 app.use("/api/viruses", routers.find(r => r.name === "viruses").router);
 
