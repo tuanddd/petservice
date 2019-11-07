@@ -1,5 +1,5 @@
 import { Model } from "sequelize";
 
-export interface IImportCSV<E extends Model> {
-  import(data: string | Buffer): Promise<boolean>;
+export interface IImportCSV {
+  importCSV<E extends Model>(data: string | Buffer): Promise<Array<E> | false>;
 }

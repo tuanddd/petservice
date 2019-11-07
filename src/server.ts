@@ -108,7 +108,10 @@ jwtMiddle.unless = unless;
 
 app.use(
   jwtMiddle.unless({
-    path: ["/api/authentication/login", "/api/vaccines/custom/export-json"]
+    path: [
+      "/api/authentication/login",
+      /\/api\/[\w\d\-]*\/custom\/export-json/g
+    ]
   })
 );
 

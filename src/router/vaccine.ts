@@ -4,7 +4,6 @@ import VaccineService from "../service/Vaccine";
 import { Request } from "express";
 import { writeFileSync, unlinkSync } from "fs";
 import { resolve } from "path";
-import ExportService from "../service/export";
 import Virus from "../model/Virus";
 import VaccineVirus from "../model/VaccineVirus";
 
@@ -18,21 +17,12 @@ export default class VaccineRouter extends CrudRouter<Vaccine, typeof Vaccine> {
       async (req: Request & { files: { csv: { data: Buffer } } }, res) => {
         res
           .status(200)
-          .end((await this.service.import(req.files.csv.data)).toString());
+          .end((await this.service.importCSV(req.files.csv.data)).toString());
       }
     );
 
     this.router.get(`/custom/export-json`, async (_req, res) => {
-      let service = new ExportService();
-      let listVirus = await service.exportJSON(Virus);
-      let listVacine = await service.exportJSON(Vaccine);
-      let listVaccineVirus = await service.exportJSON(VaccineVirus);
-      let result = {
-        listVirus,
-        listVacine,
-        listVaccineVirus
-      };
-      let jsonString = JSON.stringify(result);
+      let jsonString = await this.service.exportJSON();
       let path = resolve(__dirname, `../temp-data/data.json`);
       writeFileSync(path, jsonString);
       let mimeType = "application/json";

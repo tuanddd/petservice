@@ -13,7 +13,7 @@ export default class VirusRouter extends CrudRouter<Virus, typeof Virus> {
       async (req: Request & { files: { csv: { data: Buffer } } }, res) => {
         res
           .status(200)
-          .end((await this.service.import(req.files.csv.data)).toString());
+          .end((await this.service.importCSV(req.files.csv.data)).toString());
       }
     );
   }

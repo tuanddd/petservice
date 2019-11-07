@@ -199,11 +199,11 @@ export const init: () => Promise<boolean> = () => {
           }
         ]);
 
-        await ShopDiscountService.create({
-          shopId: 1,
-          shopDiscountId: 1,
-          shopServiceId: 1
-        });
+        // await ShopDiscountService.create({
+        //   shopId: 1,
+        //   shopDiscountId: 1,
+        //   shopServiceId: 1
+        // });
 
         return true;
       });
