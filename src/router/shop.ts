@@ -1,10 +1,10 @@
 import Shop from "../model/Shop";
 import * as express from "express";
-import ShopServiceService from "../service/shop";
+import ShopService from "../service/shop";
 import CrudRouter from "../class/crud-router";
 
 export default class ShopRouter extends CrudRouter<Shop, typeof Shop> {
-  readonly service = new ShopServiceService();
+  readonly service = new ShopService();
   constructor() {
     super(Shop);
 
@@ -16,6 +16,10 @@ export default class ShopRouter extends CrudRouter<Shop, typeof Shop> {
           .json(await this.service.getShopsHaveDiscountedServices());
       }
     );
+
+    this.router.get(`/custom/nearby`, async (req, res) => {
+      res.status(200).json(await this.service.getNearbyShopsBy(req.query))
+    })
 
     this.router.get(
       `/custom/search-shops-by-name`,

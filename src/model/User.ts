@@ -27,6 +27,11 @@ User.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    provider: {
+      type: DataTypes.STRING,
+      defaultValue: "",
+      allowNull: false
     }
   },
   { sequelize, modelName: "user" }
