@@ -1,5 +1,5 @@
 import { Model, WhereOptions } from "sequelize/types";
-import { IBaseService, GenericStaticType } from "./base-service-rename";
+import { IBaseService, GenericStaticType } from "./base-service-newfile";
 
 export interface ICrudService<E extends Model, M extends GenericStaticType<E>>
   extends IBaseService<E, M> {

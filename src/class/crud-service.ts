@@ -1,5 +1,5 @@
 import { Model, WhereOptions } from "sequelize/types";
-import { GenericStaticType } from "../interface/base-service-rename";
+import { GenericStaticType } from "../interface/base-service-newfile";
 import { ICrudService } from "../interface/crud-service";
 import BaseService from "./base-service";
 

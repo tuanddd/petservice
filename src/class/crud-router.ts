@@ -1,5 +1,5 @@
 import { Model, ValidationError } from "sequelize/types";
-import { GenericStaticType } from "../interface/base-service-rename";
+import { GenericStaticType } from "../interface/base-service-newfile";
 import { ICrudRouter } from "../interface/crud-router";
 import * as express from "express";
 import { ICrudService } from "../interface/crud-service";
