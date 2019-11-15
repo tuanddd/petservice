@@ -1,5 +1,5 @@
 import { Model } from "sequelize/types";
-import { GenericStaticType } from "./\bbase-service";
+import { GenericStaticType } from "./base-service-rename";
 import { ICrudService } from "./crud-service";
 import { IBaseRouter } from "./base-router";
 

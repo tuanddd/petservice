@@ -1,5 +1,5 @@
 import * as express from "express";
-import { IBaseService, GenericStaticType } from "./base-service";
+import { IBaseService, GenericStaticType } from "./base-service-rename";
 import { Model } from "sequelize/types";
 
 export interface IBaseRouter<E extends Model, M extends GenericStaticType<E>> {

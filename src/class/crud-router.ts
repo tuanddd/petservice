@@ -1,5 +1,5 @@
 import { Model, ValidationError } from "sequelize/types";
-import { GenericStaticType } from "../interface/\bbase-service";
+import { GenericStaticType } from "../interface/base-service-rename";
 import { ICrudRouter } from "../interface/crud-router";
 import * as express from "express";
 import { ICrudService } from "../interface/crud-service";
@@ -61,7 +61,7 @@ export default class CrudRouter<E extends Model, M extends GenericStaticType<E>>
             id: req.params.id
           });
           res.status(200).json(result);
-        } catch (error) {}
+        } catch (error) { }
       }
     );
 

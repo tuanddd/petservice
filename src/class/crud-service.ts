@@ -1,12 +1,12 @@
 import { Model, WhereOptions } from "sequelize/types";
-import { GenericStaticType } from "../interface/\bbase-service";
+import { GenericStaticType } from "../interface/base-service-rename";
 import { ICrudService } from "../interface/crud-service";
 import BaseService from "./base-service";
 
 export default class CrudService<
   E extends Model,
   M extends GenericStaticType<E>
-> extends BaseService<E, M> implements ICrudService<E, M> {
+  > extends BaseService<E, M> implements ICrudService<E, M> {
   async getAll(params?: WhereOptions): Promise<Array<E>> {
     return await this.model.findAll({
       where: params,

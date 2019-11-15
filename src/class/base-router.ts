@@ -1,6 +1,6 @@
 import * as express from "express";
 import { Model } from "sequelize/types";
-import { GenericStaticType, IBaseService } from "../interface/base-service";
+import { GenericStaticType, IBaseService } from "../interface/base-service-rename";
 import { IBaseRouter } from "../interface/base-router";
 
 export default class BaseRouter<E extends Model, M extends GenericStaticType<E>>
@@ -8,5 +8,5 @@ export default class BaseRouter<E extends Model, M extends GenericStaticType<E>>
   readonly router = express.Router();
   service: IBaseService<E, M>;
 
-  constructor() {}
+  constructor() { }
 }
