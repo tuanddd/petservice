@@ -1,6 +1,6 @@
 import BaseService from "../class/base-service";
 import User from "../model/User";
-import { intersection, union, sortBy, reverse, difference } from "lodash";
+import { intersection, uniqWith, sortBy, reverse, difference } from "lodash";
 
 enum PET_TYPE {
   DOG = 1,
@@ -46,9 +46,15 @@ export default class SuggestService extends BaseService<User, typeof User> {
       })
       // END: INIT + TRANSFORM
 
-      const user = transformed.find(t => t.id === id);
+      // START: CLEAN DUPS
+      const clean = transformed.map(t => {
+        return { ...t, petData: uniqWith(t.petData, (a, b) => a.breedName === b.breedName && a.type === b.type) }
+      })
+      // END: CLEAN DUPS
+
+      const user = clean.find(t => t.id === id);
       if (!user) return Promise.resolve([]);
-      const others = transformed.filter(t => t.id !== id)
+      const others = clean.filter(t => t.id !== id)
 
 
 
