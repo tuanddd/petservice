@@ -7,11 +7,14 @@ export default class User extends Model {
   public email!: string;
   public password!: string;
   public name!: string;
+  public provider: string;
+  public providerUserId: string;
+  public petDataJson: string;
   public createdAt!: Date;
   public updatedAt!: Date;
 
   public role?: Role;
-  public roldId!: number;
+  public roleId!: number;
 }
 User.init(
   {
@@ -22,16 +25,21 @@ User.init(
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
     },
     provider: {
       type: DataTypes.STRING,
       defaultValue: "",
-      allowNull: false
+    },
+    providerUserId: {
+      type: DataTypes.STRING,
+      defaultValue: '',
+    },
+    petDataJson: {
+      type: DataTypes.STRING,
+      defaultValue: ''
     }
   },
   { sequelize, modelName: "user" }

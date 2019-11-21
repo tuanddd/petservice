@@ -3,6 +3,8 @@ import ShopDiscountService from "../model/ShopDiscountService";
 import CrudService from "../class/crud-service";
 import { Op } from "sequelize";
 import { getDistance } from "geolib";
+import ShopDiscount from "../model/ShopDiscount";
+import Service from "../model/ShopService";
 
 export default class ShopService extends CrudService<Shop, typeof Shop> {
   model: typeof Shop;
@@ -16,7 +18,15 @@ export default class ShopService extends CrudService<Shop, typeof Shop> {
       include: [
         {
           model: ShopDiscountService,
-          required: true
+          required: true,
+          include: [
+            {
+              model: ShopDiscount,
+            },
+            {
+              model: Service
+            }
+          ]
         }
       ]
     });
