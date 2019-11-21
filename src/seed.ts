@@ -121,6 +121,10 @@ export const init: () => Promise<boolean> = () => {
           ]);
         });
 
+        await Role.create({
+          name: 'USER'
+        })
+
         await Shop.bulkCreate([
           {
             name: "Shop SH1",
