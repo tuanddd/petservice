@@ -21,6 +21,7 @@ Shop.init(
     description: DataTypes.STRING,
     latitude: DataTypes.STRING,
     longtitude: DataTypes.STRING,
+    address: DataTypes.STRING,
     status: {
       type: DataTypes.INTEGER,
       defaultValue: SHOP_STATUS_ENUM.INACTIVE,

@@ -80,7 +80,7 @@ const routers: Array<{ name: string; router: express.Router }> = [
     router: new LoginRouter().router
   },
   {
-    name: '/suggest',
+    name: 'suggest',
     router: new SuggestRouter().router
   }
 ];

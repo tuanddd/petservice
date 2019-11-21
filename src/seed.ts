@@ -94,9 +94,9 @@ export const init: () => Promise<boolean> = () => {
         }).then(role => {
           User.bulkCreate([
             {
-              email: "tuand@gmail.com",
+              email: "vutnq@gmail.com",
               password: hashSync("123456", salt),
-              name: "Tuan",
+              name: "Vu",
               roleId: role.get("id")
             }
           ]);
@@ -107,15 +107,15 @@ export const init: () => Promise<boolean> = () => {
         }).then(role => {
           User.bulkCreate([
             {
-              email: "vutnq@gmail.com",
+              email: "namvh@gmail.com",
               password: hashSync("123456", salt),
-              name: "Vu",
+              name: "Nam",
               roleId: role.get("id")
             },
             {
-              email: "khuetla@gmail.com",
+              email: "hoangnh@gmail.com",
               password: hashSync("123456", salt),
-              name: "Khue",
+              name: "Hoang",
               roleId: role.get("id")
             }
           ]);
@@ -127,17 +127,20 @@ export const init: () => Promise<boolean> = () => {
 
         await Shop.bulkCreate([
           {
-            name: "Shop SH1",
+            name: "Dog Paradise",
+            status: 2,
+            userId: 2,
+            latitude: "10.764345",
+            longitude: "106.653351",
+            address: "83 Tôn Thất Hiệp, Phường 13, Quận 11, TP Hồ Chí Minh"
+          },
+          {
+            name: "Pet Shop Pet Things",
             status: 2,
             userId: 2
           },
           {
-            name: "Shop SH2",
-            status: 2,
-            userId: 2
-          },
-          {
-            name: "Shop SH3",
+            name: "Hachiko",
             status: 1,
             userId: 3
           }
@@ -145,22 +148,22 @@ export const init: () => Promise<boolean> = () => {
 
         await ShopService.bulkCreate([
           {
-            name: "Service S1",
-            price: "5000",
+            name: "Tắm spa, vệ sinh tai",
+            price: "85000",
             unit: "VND",
             shopId: 1,
             userId: 2
           },
           {
-            name: "Service S2",
-            price: "10000",
+            name: "Vệ sinh tai",
+            price: "1000000",
             unit: "VND",
             shopId: 2,
             userId: 2
           },
           {
-            name: "Service S3",
-            price: "15000",
+            name: "Cắt lông vệ sinh",
+            price: "400000",
             unit: "VND",
             shopId: 1,
             userId: 2
