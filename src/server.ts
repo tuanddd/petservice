@@ -115,6 +115,10 @@ app.use(
   jwtMiddle.unless({
     path: [
       "/api/authentication/login",
+      "/api/shops/custom/get-shops-have-discounted-services",
+      "/api/shops/custom/nearby",
+      "/api/shops",
+
       /\/api\/[\w\d\-]*\/custom\/export-json/g
     ]
   })
