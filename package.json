@@ -10,7 +10,7 @@
     "build": "rm -rf src/public/* && cd petservice-fe && npm run build && cp -a dist/. ../src/public"
   },
   "keywords": [],
-  "author": "Dao Tuan <heryhudson@gmail.com>",
+  "author": "VuTNQ MacBook-Air",
   "license": "ISC",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
