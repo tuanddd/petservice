@@ -24,6 +24,7 @@ import VaccineVirus from "./model/VaccineVirus";
 import { resolve } from "path";
 import MedicineRouter from "./router/medicine";
 import UserRouter from "./router/user";
+import SuggestRouter from "./router/suggest";
 
 const app = express();
 app.use(bodyParser.json());
@@ -77,6 +78,10 @@ const routers: Array<{ name: string; router: express.Router }> = [
   {
     name: "authentication",
     router: new LoginRouter().router
+  },
+  {
+    name: '/suggest',
+    router: new SuggestRouter().router
   }
 ];
 
@@ -150,6 +155,11 @@ app.use(
 app.use(
   `/api/authentication/`,
   routers.find(r => r.name === "authentication").router
+);
+
+app.use(
+  `/api/suggest/`,
+  routers.find(r => r.name === "suggest").router
 );
 
 app.use("/", (_req, res) =>

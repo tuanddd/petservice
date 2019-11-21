@@ -21,6 +21,7 @@
     "@types/express-fileupload": "^1.1.0",
     "@types/express-unless": "^0.5.1",
     "@types/jsonwebtoken": "^8.3.5",
+    "@types/lodash": "^4.14.149",
     "@types/node": "^12.11.5",
     "@types/validator": "^10.11.3",
     "bcrypt": "^3.0.6",
