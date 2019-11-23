@@ -124,7 +124,8 @@ app.use(
       "/api/shops/custom/get-shops-have-discounted-services",
       "/api/shops/custom/nearby",
       "/api/shops",
-
+      "/api/suggest/custom/get-suggestions",
+      "/api/users/custom/uid",
       /\/api\/[\w\d\-]*\/custom\/export-json/g
     ]
   })

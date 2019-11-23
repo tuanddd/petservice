@@ -5,6 +5,7 @@ import { Op } from "sequelize";
 import { getDistance } from "geolib";
 import ShopDiscount from "../model/ShopDiscount";
 import Service from "../model/ShopService";
+import User from "../model/User";
 
 export default class ShopService extends CrudService<Shop, typeof Shop> {
   model: typeof Shop;
@@ -17,11 +18,14 @@ export default class ShopService extends CrudService<Shop, typeof Shop> {
     return await this.model.findAll({
       include: [
         {
+          model: User,
+        },
+        {
           model: ShopDiscountService,
           required: true,
           include: [
             {
-              model: ShopDiscount,
+              model: ShopDiscount
             },
             {
               model: Service

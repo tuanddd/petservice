@@ -109,13 +109,13 @@ export const init: () => Promise<boolean> = () => {
             {
               email: "namvh@gmail.com",
               password: hashSync("123456", salt),
-              name: "Nam",
+              name: "Hoang Nam",
               roleId: role.get("id")
             },
             {
               email: "hoangnh@gmail.com",
               password: hashSync("123456", salt),
-              name: "Hoang",
+              name: "Huy Hoang",
               roleId: role.get("id")
             }
           ]);
@@ -123,7 +123,43 @@ export const init: () => Promise<boolean> = () => {
 
         await Role.create({
           name: 'USER'
-        })
+        }).then(role => {
+          User.bulkCreate([
+            {
+              email: "tuand@gmail.com",
+              name: "Dao Tuan",
+              roleId: role.get("id"),
+              provider: "firebase",
+              providerUserId: "e3Plnk5sCYg5eNh5O9bSSBJHoKf2",
+              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Lucky"},{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Pug","color_describe":"","pet_name":"suli"}]',
+            },
+            {
+              email: "dinnlt@gmail.com",
+              provider: "firebase",
+              name: "Le Trach Dinh",
+              providerUserId: "E6GFdFD7ZpVnVZSxEnncI2gcZBB2",
+              roleId: role.get("id"),
+              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Bo"}]',
+            },
+            {
+              email: "manhdv@gmail.com",
+              provider: "firebase",
+              name: "Dao Van Manh",
+              providerUserId: "dMaTCc5xiOMeXcsMBgnHqa1JpYE3",
+              roleId: role.get("id"),
+              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Husky","color_describe":"","pet_name":"Sun"}]',
+            },
+            {
+              email: "sontbv@gmail.com",
+              provider: "firebase",
+              name: "Tran Bao Van Son",
+              providerUserId: "u9e7BR2e1eMu37wZvMzY4xLOPQf2",
+              roleId: role.get("id"),
+              petDataJson : '[{"pet_type_id":2,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Egyptian Cat","color_describe":"","pet_name":"Miu"}]',
+            }
+          ]);
+
+        });
 
         await Shop.bulkCreate([
           {

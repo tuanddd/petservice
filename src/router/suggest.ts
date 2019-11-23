@@ -9,8 +9,8 @@ export default class SuggestRouter extends BaseRouter<User, typeof User> {
     super()
 
     this.router.get(`/custom/get-suggestions`, async (req, res) => {
-      let { id } = req.query;
-      res.status(200).json(await this.service.computeSuggestList(id))
+      let { firebaseUid } = req.query;
+      res.status(200).json(await this.service.computeSuggestList(firebaseUid))
     })
   }
 }

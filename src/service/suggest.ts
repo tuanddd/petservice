@@ -17,6 +17,7 @@ type TransformedUser = {
   id: number
   name?: string
   email: string
+  providerUserId: string
   similarityScoreForPetType: number
   similarityScoreForBreedType: number
   totalSimilarityScore: number
@@ -28,35 +29,44 @@ export default class SuggestService extends BaseService<User, typeof User> {
     super(User)
   }
 
-  async computeSuggestList(id: number): Promise<Array<TransformedUser>> {
+  async computeSuggestList(id: string): Promise<Array<TransformedUser>> {
     try {
       // START: INIT + TRANSFORM
       const allUsers = await this.model.findAll();
-      const transformed: Array<TransformedUser> = allUsers.map(user => {
-        const parsedJson = JSON.parse(user.petDataJson);
-        return {
-          id: user.id, name: user.name, email: user.email, similarityScoreForPetType: 0, similarityScoreForBreedType: 0, totalSimilarityScore: 0, petData: parsedJson.map((p: { pet_type_id: any; breed_name: any; }) => {
-            const { pet_type_id, breed_name } = p;
-            return {
-              type: pet_type_id === 1 ? PET_TYPE.DOG : pet_type_id === 2 ? PET_TYPE.CAT : PET_TYPE.OTHER,
-              breedName: breed_name
-            }
-          })
-        }
+
+      const filterUsers = allUsers.filter(user => {
+        return user.provider === 'firebase' || user.petDataJson !== '';
       })
+
+      const transformed: Array<TransformedUser> = filterUsers.map(user => {
+          const parsedJson = JSON.parse(user.petDataJson);
+          return {
+            id: user.id, name: user.name, email: user.email, providerUserId: user.providerUserId, similarityScoreForPetType: 0, similarityScoreForBreedType: 0, totalSimilarityScore: 0, petData: parsedJson.map((p: { pet_type_id: any; breed_name: any; }) => {
+              const { pet_type_id, breed_name } = p;
+              return {
+                type: pet_type_id === 1 ? PET_TYPE.DOG : pet_type_id === 2 ? PET_TYPE.CAT : PET_TYPE.OTHER,
+                breedName: breed_name
+              }
+            })
+          }
+      })
+
       // END: INIT + TRANSFORM
 
       // START: CLEAN DUPS
       const clean = transformed.map(t => {
         return { ...t, petData: uniqWith(t.petData, (a, b) => a.breedName === b.breedName && a.type === b.type) }
       })
+      console.log(clean);
       // END: CLEAN DUPS
 
-      const user = clean.find(t => t.id === id);
+      const user = clean.find(t => t.providerUserId === id);
+
+      console.log(id);
+      console.log(user);
       if (!user) return Promise.resolve([]);
-      const others = clean.filter(t => t.id !== id)
 
-
+      const others = clean.filter(t => t.providerUserId !== id)
 
       // START: 1ST LAYER SIMILARITY (PET TYPE)
       const firstLayer = others.map(o => {
@@ -72,7 +82,7 @@ export default class SuggestService extends BaseService<User, typeof User> {
       }).filter(fl => fl.similarityScoreForPetType > 0);
       // END: 1ST LAYER SIMILARITY (PET TYPE)
 
-
+      console.log(firstLayer);
 
       // START: 2ND LAYER SIMILARITY (BREED TYPE)
       const secondLayer = firstLayer.map(o => {
@@ -96,6 +106,7 @@ export default class SuggestService extends BaseService<User, typeof User> {
       return result;
 
     } catch (error) {
+      console.log(error);
       return Promise.resolve([])
     }
   }
