@@ -172,14 +172,22 @@ export const init: () => Promise<boolean> = () => {
             phoneNumber: "0796339739"
           },
           {
-            name: "Pet Shop Pet Things",
+            name: "Pet Mart 3 tháng 2",
             status: 2,
-            userId: 2
+            userId: 2,
+            latitude: "10.774051",
+            longitude: "106.677730",
+            address: "116 3 tháng 2 , Phường 12, Quận 10, TP Hồ Chí Minh",
+            phoneNumber: "0796339739"
           },
           {
-            name: "Hachiko",
+            name: "AZ Pet Shop",
             status: 1,
-            userId: 3
+            userId: 3,
+            latitude: "10.796391",
+            longitude: "106.718338",
+            address: "135/11 Nguyễn Hữu Cảnh, Phường 22, Bình Thạnh, Hồ Chí Minh",
+            phoneNumber: "0796339739"
           }
         ]);
 
