@@ -168,7 +168,8 @@ export const init: () => Promise<boolean> = () => {
             userId: 2,
             latitude: "10.764345",
             longitude: "106.653351",
-            address: "83 Tôn Thất Hiệp, Phường 13, Quận 11, TP Hồ Chí Minh"
+            address: "83 Tôn Thất Hiệp, Phường 13, Quận 11, TP Hồ Chí Minh",
+            phoneNumber: "0796339739"
           },
           {
             name: "Pet Shop Pet Things",
