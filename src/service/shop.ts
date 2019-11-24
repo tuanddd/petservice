@@ -7,6 +7,9 @@ import ShopDiscount from "../model/ShopDiscount";
 import Service from "../model/ShopService";
 import User from "../model/User";
 
+const MINIMUM_RADIUS = Number(process.env.NEARBY_SHOP_MINIMUM_IN_METER);
+const MAXIMUM_RADIUS = Number(process.env.NEARBY_SHOP_MAXIMUM_IN_METER);
+
 export default class ShopService extends CrudService<Shop, typeof Shop> {
   model: typeof Shop;
 
@@ -36,21 +39,21 @@ export default class ShopService extends CrudService<Shop, typeof Shop> {
     });
   }
 
-  async getNearbyShopsBy(params: { r: string, numOfShops: string, lat: string, long: string }): Promise<Array<Shop>> {
+  // parameter r (radius is measured in meters unit)
+  async getNearbyShopsBy(params: { r: string, lat: string, long: string }): Promise<Array<Shop>> {
     try {
-      const maximumRadius = 100, minimumRadius = 5;
-      let { r: rQuery, numOfShops = 5, lat: latQuery, long: longQuery } = params;
+      let { r: rQuery, lat: latQuery, long: longQuery } = params;
       if (!latQuery || !longQuery) throw new Error("Lat/Long not provided");
       const lat = parseFloat(latQuery), lon = parseFloat(longQuery);
       let r = parseInt(rQuery, 10);
       if (isNaN(r)) throw new Error("Invalid radius");
-      if (r > maximumRadius) r = maximumRadius;
-      if (r < minimumRadius) r = minimumRadius;
+      if (r > MAXIMUM_RADIUS) r = MAXIMUM_RADIUS;
+      if (r < MINIMUM_RADIUS) r = MINIMUM_RADIUS;
       if (isNaN(lat) || isNaN(lon)) throw new Error(`Invalid Lat: ${latQuery}, Long: ${longQuery}`);
       const shops = await this.model.findAll();
-      let isNear: (shop: { latitude: string, longtitude: string } & Shop) => boolean = ({ latitude, longtitude }) => {
+      let isNear: (shop: { latitude: string, longitude: string } & Shop) => boolean = ({ latitude, longitude }) => {
         const sLat = parseFloat(latitude);
-        const sLon = parseFloat(longtitude);
+        const sLon = parseFloat(longitude);
         return !isNaN(sLat) && !isNaN(sLon) && getDistance({ lat, lon }, { lat: sLat, lon: sLon }) <= r;
       };
       return shops.filter(isNear)
