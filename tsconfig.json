@@ -7,7 +7,10 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "allowJs": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "sourceMap": true
   },
-  "exclude": ["petservice-fe/**"]
+  "exclude": [
+    "petservice-fe/**"
+  ]
 }
