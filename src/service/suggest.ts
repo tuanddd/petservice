@@ -41,7 +41,7 @@ export default class SuggestService extends BaseService<User, typeof User> {
       const transformed: Array<TransformedUser> = filterUsers.map(user => {
           const parsedJson = JSON.parse(user.petDataJson);
           return {
-            id: user.id, name: user.name, email: user.email, providerUserId: user.providerUserId, similarityScoreForPetType: 0, similarityScoreForBreedType: 0, totalSimilarityScore: 0, petData: parsedJson.map((p: { pet_type_id: any; breed_name: any; }) => {
+            id: user.id, name: user.name, email: user.email, petDataJson : user.petDataJson, providerUserId: user.providerUserId, similarityScoreForPetType: 0, similarityScoreForBreedType: 0, totalSimilarityScore: 0, petData: parsedJson.map((p: { pet_type_id: any; breed_name: any; }) => {
               const { pet_type_id, breed_name } = p;
               return {
                 type: pet_type_id === 1 ? PET_TYPE.DOG : pet_type_id === 2 ? PET_TYPE.CAT : PET_TYPE.OTHER,

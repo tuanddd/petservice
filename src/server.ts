@@ -126,6 +126,7 @@ app.use(
       "/api/shops",
       "/api/suggest/custom/get-suggestions",
       "/api/users/custom/uid",
+      "/api/users/custom/firebaseUsers",
       /\/api\/[\w\d\-]*\/custom\/export-json/g
     ]
   })

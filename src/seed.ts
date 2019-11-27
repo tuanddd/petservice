@@ -156,6 +156,14 @@ export const init: () => Promise<boolean> = () => {
               providerUserId: "u9e7BR2e1eMu37wZvMzY4xLOPQf2",
               roleId: role.get("id"),
               petDataJson : '[{"pet_type_id":2,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Egyptian Cat","color_describe":"","pet_name":"Miu"}]',
+            },
+            {
+              email: "huyhoang@gmail.com",
+              name: "Huy hoang",
+              roleId: role.get("id"),
+              provider: "firebase",
+              providerUserId: "HCM0BDNBb9ccVjXyR3CJUlDlr8L2",
+              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Heo"},{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Pug","color_describe":"","pet_name":"Lulu"}]',
             }
           ]);
 

@@ -16,6 +16,13 @@ export default class UserService extends CrudService<User, typeof User> {
     });
   }
 
+  async updatePetsDataJsonUserByUid(userUId: string, petDataJsonFromReq: string): Promise<[number, User[]]> {
+    try {
+      return await this.model.update({ petDataJson: petDataJsonFromReq },{ where : { providerUserId : userUId } ,limit : 1});
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 
   async createUserWithProvider(provider: string, id: string, user: Pick<User, 'name' | 'email' | 'roleId' | 'petDataJson'>): Promise<User> {
     try {
