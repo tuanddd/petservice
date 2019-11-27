@@ -38,7 +38,7 @@ User.init(
       defaultValue: '',
     },
     petDataJson: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(4096),
       defaultValue: ''
     }
   },

@@ -127,6 +127,7 @@ app.use(
       "/api/suggest/custom/get-suggestions",
       "/api/users/custom/uid",
       "/api/users/custom/firebaseUsers",
+      "/api/users/custom/register-user-firebase",
       /\/api\/[\w\d\-]*\/custom\/export-json/g
     ]
   })
