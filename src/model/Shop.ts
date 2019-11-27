@@ -6,7 +6,7 @@ export const enum SHOP_STATUS_ENUM {
   ACTIVE
 }
 
-export default class Shop extends Model {}
+export default class Shop extends Model { }
 Shop.init(
   {
     name: {
@@ -20,7 +20,7 @@ Shop.init(
     },
     description: DataTypes.STRING,
     latitude: DataTypes.STRING,
-    longtitude: DataTypes.STRING,
+    longitude: DataTypes.STRING,
     address: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     status: {

@@ -4,11 +4,12 @@ import Shop from "../model/Shop";
 import User from "../model/User";
 import ShopDiscount from "../model/ShopDiscount";
 import ShopService from "../model/ShopService";
+import { Op, fn } from 'sequelize';
 
 export default class ShopDiscountServicesService extends CrudService<
   ShopDiscountService,
   typeof ShopDiscountService
-> {
+  > {
   model: typeof ShopDiscountService;
 
   constructor() {
@@ -77,5 +78,22 @@ export default class ShopDiscountServicesService extends CrudService<
     });
 
     return { services: unAppliedServices, discounts: unAppliedDiscounts };
+  }
+
+  async getActiveDiscountServices(): Promise<Array<ShopDiscountService>> {
+    return await this.model.findAll({
+      attributes: ['shop_discount.valid_from', 'shop_discount.valid_until'],
+      include: [ShopService, {
+        model: ShopDiscount,
+        where: {
+          validFrom: {
+            [Op.lte]: fn('now')
+          },
+          validUntil: {
+            [Op.gte]: fn('now')
+          }
+        }
+      }]
+    })
   }
 }

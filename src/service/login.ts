@@ -12,12 +12,13 @@ export default class LoginService extends BaseService<User, typeof User> {
     username: string;
     password: string;
   }): Promise<User | false> {
-    let user = await this.model.findOne({
+    const user = await this.model.findOne({
       include: [Role],
       where: { email: credentials.username }
     });
     if (user !== null) {
-      let valid = await compare(credentials.password, user.password);
+      if (!user.password) return Promise.resolve(false);
+      const valid = await compare(credentials.password, user.password);
       return Promise.resolve(valid ? user : false);
     }
 
@@ -25,7 +26,7 @@ export default class LoginService extends BaseService<User, typeof User> {
   }
 
   async getMe(id: number): Promise<User> {
-    let user = await this.model.findByPk(id, { include: [Role] });
+    const user = await this.model.findByPk(id, { include: [Role] });
     return Promise.resolve(user);
   }
 }
