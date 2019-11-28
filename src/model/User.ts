@@ -1,6 +1,7 @@
 import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../connection";
 import Role from "./Role";
+import { hashSync } from 'bcrypt'
 
 export default class User extends Model {
   public id!: number;
@@ -44,3 +45,15 @@ User.init(
   },
   { sequelize, modelName: "user" }
 );
+
+User.beforeCreate('hashPassword', user => {
+  if (user.password)
+    user.password = hashSync(user.password, 10);
+})
+
+User.beforeBulkCreate('hashPasswordBulk', users => {
+  users.forEach(u => {
+    if (u.password)
+      u.password = hashSync(u.password, 10)
+  })
+})

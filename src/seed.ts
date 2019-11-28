@@ -6,15 +6,12 @@ import Shop from "./model/Shop";
 import ShopDiscount from "./model/ShopDiscount";
 import { addDays } from "date-fns";
 import ShopDiscountService from "./model/ShopDiscountService";
-import { hashSync } from "bcrypt";
 import VaccineVirus from "./model/VaccineVirus";
 import Virus from "./model/Virus";
 import Vaccine from "./model/Vaccine";
 import * as csv from "neat-csv";
 import { resolve } from "path";
 import { readFileSync } from "fs";
-
-const salt = 10;
 
 export const init: () => Promise<boolean> = () => {
   return sequelize
@@ -95,7 +92,7 @@ export const init: () => Promise<boolean> = () => {
           User.bulkCreate([
             {
               email: "vutnq@gmail.com",
-              password: hashSync("123456", salt),
+              password: "123456",
               name: "Vu",
               roleId: role.get("id")
             }
@@ -108,13 +105,13 @@ export const init: () => Promise<boolean> = () => {
           User.bulkCreate([
             {
               email: "namvh@gmail.com",
-              password: hashSync("123456", salt),
+              password: "123456",
               name: "Hoang Nam",
               roleId: role.get("id")
             },
             {
               email: "hoangnh@gmail.com",
-              password: hashSync("123456", salt),
+              password: "123456",
               name: "Huy Hoang",
               roleId: role.get("id")
             }
@@ -131,7 +128,7 @@ export const init: () => Promise<boolean> = () => {
               roleId: role.get("id"),
               provider: "firebase",
               providerUserId: "e3Plnk5sCYg5eNh5O9bSSBJHoKf2",
-              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Lucky"},{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Pug","color_describe":"","pet_name":"suli"}]',
+              petDataJson: '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Lucky"},{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Pug","color_describe":"","pet_name":"suli"}]',
             },
             {
               email: "dinnlt@gmail.com",
@@ -139,7 +136,7 @@ export const init: () => Promise<boolean> = () => {
               name: "Le Trach Dinh",
               providerUserId: "E6GFdFD7ZpVnVZSxEnncI2gcZBB2",
               roleId: role.get("id"),
-              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Bo"}]',
+              petDataJson: '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Akita","color_describe":"","pet_name":"Bo"}]',
             },
             {
               email: "manhdv@gmail.com",
@@ -147,7 +144,7 @@ export const init: () => Promise<boolean> = () => {
               name: "Dao Van Manh",
               providerUserId: "dMaTCc5xiOMeXcsMBgnHqa1JpYE3",
               roleId: role.get("id"),
-              petDataJson : '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Husky","color_describe":"","pet_name":"Sun"}]',
+              petDataJson: '[{"pet_type_id":1,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Husky","color_describe":"","pet_name":"Sun"}]',
             },
             {
               email: "sontbv@gmail.com",
@@ -155,7 +152,7 @@ export const init: () => Promise<boolean> = () => {
               name: "Tran Bao Van Son",
               providerUserId: "u9e7BR2e1eMu37wZvMzY4xLOPQf2",
               roleId: role.get("id"),
-              petDataJson : '[{"pet_type_id":2,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Egyptian Cat","color_describe":"","pet_name":"Miu"}]',
+              petDataJson: '[{"pet_type_id":2,"gender":1,"birthdate":1574349685,"image":"","breed_name":"Egyptian Cat","color_describe":"","pet_name":"Miu"}]',
             }
           ]);
 
